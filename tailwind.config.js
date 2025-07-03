@@ -5,7 +5,11 @@ module.exports = {
             './src/pages/**/*.{js,ts,jsx,tsx}',
           ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'glow-center': 'radial-gradient(circle at center, rgba(255,255,255,0.3), transparent 60%)',
+      },
+    },
     fontFamily: {
       sans: ['Arial', 'sans-serif'],
     }
