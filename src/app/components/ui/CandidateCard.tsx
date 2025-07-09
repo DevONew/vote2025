@@ -1,6 +1,7 @@
 'use client'
 import React from "react"
 import CandidateImage from "./CandidateImage";
+import PercentageBar from "./PercentageBar";
 
 type CandidateCard = {
     src: string;
@@ -26,7 +27,7 @@ export default function CandidateCard(props: CandidateCard) {
                     <div className="text-[12px] text-neutral-600">101,106표</div>
                 </div>
             </div>
-            <div>퍼센테이지 바</div>
+            <div><PercentageBar percentage={38.7} color={partyColor}/></div>
         </div>
     );
 }
