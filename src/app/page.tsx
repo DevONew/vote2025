@@ -12,7 +12,6 @@ export default function Page() {
       <div className="w-[300px]">
         <RegionTurnout/>
         <CandidateCard src={meta.image} partyColor={meta.partyColor}/>
-        <div>스크립트 중</div>
       </div>
     </>
   );
