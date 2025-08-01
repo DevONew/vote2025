@@ -2,17 +2,26 @@ import ElectionTurnoutCard from "./components/ui/ElectionTurnoutCard";
 import RegionTurnout from "./components/ui/RegionTurnout";
 import CandidateCard from "./components/ui/CandidateCard";
 import { candidateMeta } from "@/constants/candidateMeta";
+import CartogramRegion from "./components/catogram/CatogramRegion";
 export default function Page() {
   const meta = candidateMeta["이재명"];
 
   return (
-    <>
-      <h1 className="text-3xl font-bold ">ssh 방식으로 바꾸는중</h1>
-      <ElectionTurnoutCard/>
-      <div className="w-[300px]">
-        <RegionTurnout/>
-        <CandidateCard src={meta.image} partyColor={meta.partyColor}/>
+    <div className="p-8">
+
+      <div className="flex gap-8">
+        {/* 왼쪽: 지도 */}
+        <div className="w-[800px]">
+          <CartogramRegion />
+        </div>
+
+        {/* 오른쪽: 정보 카드 */}
+        <div className="w-[300px] flex flex-col gap-4">
+          <ElectionTurnoutCard />
+          <RegionTurnout />
+          <CandidateCard src={meta.image} partyColor={meta.partyColor} />
+        </div>
       </div>
-    </>
+    </div>
   );
 }
