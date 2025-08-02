@@ -13,6 +13,17 @@ function getCentroid(pointsStr: string){
     return {centerX, centerY};
 }
 
+
+function getCentroidForRegion(polygons: string[]) {
+  const centers = polygons.map(getCentroid); 
+  const total = centers.length;
+
+  const centerX = centers.reduce((sum, c) => sum + c.centerX, 0) / total;
+  const centerY = centers.reduce((sum, c) => sum + c.centerY, 0) / total;
+
+  return { centerX, centerY };
+}
+
 const CartogramRegion = () => {
   return (
     <svg
@@ -21,7 +32,7 @@ const CartogramRegion = () => {
       className="w-full h-auto"
     >
       {regions.map((region) => {
-        const { centerX, centerY } = getCentroid(region.polygons[0]);
+        const { centerX, centerY } = getCentroidForRegion(region.polygons);
 
         return (
           <g key={region.id} id={region.id}>
