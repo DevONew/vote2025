@@ -13,6 +13,10 @@ function getCentroid(pointsStr: string) {
   return { centerX, centerY };
 }
 
+function splitLabel(label: string) {
+  return label.replace(/[^시군구]+[시군구]/g, (match) => match + '\n').trim();
+}
+
 const CartogramRegion = () => {
   return (
     <svg
@@ -41,7 +45,11 @@ const CartogramRegion = () => {
                   fill="#333"
                   pointerEvents="none"
                 >
-                  {region.id}
+                  {splitLabel(region.id).split('\n').map((line, i) => (
+                    <tspan key={i} x={centerX} dy={i === 0 ? '0' : '1.2em'}>
+                      {line}
+                    </tspan>
+                  ))}
                 </text>
               </g>
             );
