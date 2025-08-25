@@ -11,7 +11,7 @@ export default function Page() {
 
       <div className="flex gap-8">
         {/* 왼쪽: 지도 */}
-        <div className="w-[800px]">
+        <div className="w-[1000px]">
           <CartogramRegion />
         </div>
 
