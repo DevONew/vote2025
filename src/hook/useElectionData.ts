@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+// ElectionData 타입 정의
+// API 응답 형태에 맞춰 선거 데이터를 구조화함 (TypeScript 타입 정의)
 type ElectionData = {
   sdName: string;     // 시도 이름 (예: 서울특별시)
   cityName: string;   // 시군구 이름 (예: 강서구)
@@ -21,7 +23,7 @@ type ElectionData = {
   vote03: number;     // 후보3 득표율
 };
 
-// ✅ 커스텀 훅 정의: 컴포넌트에서 API 호출과 로딩/에러 상태를 쉽게 재사용하기 위해 정의
+//  커스텀 훅 정의: 컴포넌트에서 API 호출과 로딩/에러 상태를 쉽게 재사용하기 위해 정의
 export function useElectionData() {
   // 전체 선거 데이터를 담는 state (초기값은 빈 배열)
   const [data, setData] = useState<ElectionData[]>([]);
@@ -32,7 +34,7 @@ export function useElectionData() {
   // 에러 메시지 상태 (에러 없으면 null)
   const [error, setError] = useState<null | string>(null);
 
-  // ✅ 컴포넌트 마운트 시(처음 렌더링 시) 한 번만 실행되는 함수
+  //  컴포넌트 마운트 시(처음 렌더링 시) 한 번만 실행되는 함수
   useEffect(() => {
     // 비동기로 선거 데이터를 fetch 하는 함수
     async function fetchElectionData() {
@@ -58,6 +60,6 @@ export function useElectionData() {
     fetchElectionData();
   }, []); // 빈 배열 → 컴포넌트가 처음 마운트될 때만 실행
 
-  // ✅ 이 훅을 사용하는 컴포넌트에서 데이터를 쉽게 사용하도록 반환
+  // 이 훅을 사용하는 컴포넌트에서 데이터를 쉽게 사용하도록 반환
   return { data, loading, error };
 }
