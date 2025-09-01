@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-// ElectionData 타입 정의
 // API 응답 형태에 맞춰 선거 데이터를 구조화함 (TypeScript 타입 정의)
 type ElectionData = {
   sdName: string;     // 시도 이름 (예: 서울특별시)
