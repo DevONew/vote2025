@@ -60,5 +60,6 @@ export function useElectionData() {
   }, []); // 빈 배열 → 컴포넌트가 처음 마운트될 때만 실행
 
   // 이 훅을 사용하는 컴포넌트에서 데이터를 쉽게 사용하도록 반환
+  
   return { data, loading, error };
 }
