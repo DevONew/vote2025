@@ -29,7 +29,7 @@ export default function Page() {
       <div className="flex gap-8">
         {/* 왼쪽: 지도 */}
         <div className="w-[1000px]">
-          <CartogramRegion />
+          <CartogramRegion electionData={data} />
         </div>
 
         {/* 오른쪽: 정보 카드 */}

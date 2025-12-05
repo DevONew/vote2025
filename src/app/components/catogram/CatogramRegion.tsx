@@ -1,6 +1,11 @@
 'use client';
 import React from 'react';
 import { regions } from '@/constants/regions';
+import { getRegionColor, type ElectionData } from '@/utils/colorUtils';
+
+type CatogramRegionProps = {
+  electionData: ElectionData[];
+};
 
 function getCentroid(pointsStr: string) {
   const coords = pointsStr.trim().split(' ').map(Number);
@@ -34,33 +39,38 @@ function getLabelLayout(lines: string[]){
 
 }
 
-const CartogramRegion = () => {
+const CartogramRegion = ({ electionData }: CatogramRegionProps) => {
   return (
     <svg viewBox="0 0 750 928" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
-      {regions.map((region) => (
-        <g key={region.id} id={region.id}>
-          {region.polygons.map((points, idx) => {
-            const { centerX, centerY } = getCentroid(points);
-            const lines = splitLabel(region.id); 
-            const { fontSize, dyOffset, offsetX, offsetY } = getLabelLayout(lines);
-            const x = centerX + offsetX;
-            const y = centerY + offsetY;
+      {regions.map((region) => {
+        // 해당 지역의 1위 후보 정당 색상 가져오기
+        const regionColor = getRegionColor(region.id, electionData);
 
-            return (
-              <g key={`${region.id}-${idx}`}>
-                <polygon points={points} fill="#e0e0e0" stroke="#999" strokeWidth={1} />
-                <text x={x} y={y} textAnchor="middle" fill="#333" pointerEvents="none">
-                  {lines.map((line, i) => (
-                    <tspan key={i} x={x} dy={`${i === 0 ? dyOffset : 1.2}em`} fontSize={fontSize}>
-                      {line}
-                    </tspan>
-                  ))}
-                </text>
-              </g>
-            );
-          })}
-        </g>
-      ))}
+        return (
+          <g key={region.id} id={region.id}>
+            {region.polygons.map((points, idx) => {
+              const { centerX, centerY } = getCentroid(points);
+              const lines = splitLabel(region.id);
+              const { fontSize, dyOffset, offsetX, offsetY } = getLabelLayout(lines);
+              const x = centerX + offsetX;
+              const y = centerY + offsetY;
+
+              return (
+                <g key={`${region.id}-${idx}`}>
+                  <polygon points={points} fill={regionColor} stroke="#999" strokeWidth={1} />
+                  <text x={x} y={y} textAnchor="middle" fill="#ffffff" pointerEvents="none">
+                    {lines.map((line, i) => (
+                      <tspan key={i} x={x} dy={`${i === 0 ? dyOffset : 1.2}em`} fontSize={fontSize}>
+                        {line}
+                      </tspan>
+                    ))}
+                  </text>
+                </g>
+              );
+            })}
+          </g>
+        );
+      })}
     </svg>
   );
 };
