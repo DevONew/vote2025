@@ -13,7 +13,7 @@ export default function RegionTurnout({ regionName, totalVotes, turnout }: Regio
 
     return(
         <div>
-            <div className="text-2xl font-bold leading-[21px] flex flex-wrap gap-x-[10px] pb-[15px]">
+            <div className="text-2xl font-bold leading-[28px] flex flex-wrap gap-x-[10px] gap-y-[6px] pb-[15px]">
                 {regionParts.map((part, idx) => (
                     <div key={idx}>{part}</div>
                 ))}
