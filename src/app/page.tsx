@@ -26,6 +26,9 @@ export default function Page() {
     return <div className="p-8 text-center text-red-600">{error}</div>;
   }
 
+  // 전국 합계 데이터 (0번 인덱스)
+  const nationalData = data[0];
+
   // 호버된 지역의 데이터 찾기
   const hoveredRegionData = hoveredRegionId
     ? data.find((item) => {
@@ -34,8 +37,8 @@ export default function Page() {
       })
     : null;
 
-  // 표시할 지역 데이터 (호버된 지역이 있으면 그것, 없으면 전국 합계)
-  const displayData = hoveredRegionData || data.find((item) => item.cityName === '합계');
+  // 표시할 지역 데이터 (호버된 지역이 있으면 그것, 없으면 서울 중구)
+  const displayData = hoveredRegionData || data.find((item) => item.sdName === '서울특별시' && item.cityName === '중구') || data[0];
 
   // 1위 후보 찾기
   const candidates = displayData
@@ -63,7 +66,11 @@ export default function Page() {
 
         {/* 오른쪽: 정보 카드 */}
         <div className="w-[300px] flex flex-col gap-4">
-          <ElectionTurnoutCard />
+          <ElectionTurnoutCard
+            totalVoters={nationalData?.tusu || 0}
+            totalEligible={nationalData?.sunsu || 0}
+            turnout={nationalData?.turnout || 0}
+          />
           <RegionTurnout
             regionName={displayData ? `${displayData.sdName} ${displayData.cityName}` : '전국'}
             totalVotes={displayData?.tusu || 0}
