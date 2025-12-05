@@ -5,6 +5,7 @@ import { getRegionColor, type ElectionData } from '@/utils/colorUtils';
 
 type CatogramRegionProps = {
   electionData: ElectionData[];
+  onRegionHover?: (regionId: string | null) => void;
 };
 
 function getCentroid(pointsStr: string) {
@@ -39,7 +40,7 @@ function getLabelLayout(lines: string[]){
 
 }
 
-const CartogramRegion = ({ electionData }: CatogramRegionProps) => {
+const CartogramRegion = ({ electionData, onRegionHover }: CatogramRegionProps) => {
   return (
     <svg viewBox="0 0 750 928" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
       {regions.map((region) => {
@@ -57,7 +58,15 @@ const CartogramRegion = ({ electionData }: CatogramRegionProps) => {
 
               return (
                 <g key={`${region.id}-${idx}`}>
-                  <polygon points={points} fill={regionColor} stroke="#999" strokeWidth={1} />
+                  <polygon
+                    points={points}
+                    fill={regionColor}
+                    stroke="#999"
+                    strokeWidth={1}
+                    onMouseEnter={() => onRegionHover?.(region.id)}
+                    onMouseLeave={() => onRegionHover?.(null)}
+                    style={{ cursor: 'pointer' }}
+                  />
                   <text x={x} y={y} textAnchor="middle" fill="#ffffff" pointerEvents="none">
                     {lines.map((line, i) => (
                       <tspan key={i} x={x} dy={`${i === 0 ? dyOffset : 1.2}em`} fontSize={fontSize}>

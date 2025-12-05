@@ -6,10 +6,14 @@ import PercentageBar from "./PercentageBar";
 type CandidateCard = {
     src: string;
     partyColor: string;
+    candidateName: string;
+    partyName: string;
+    votePercentage: number;
+    voteCount: number;
 };
 
 export default function CandidateCard(props: CandidateCard) {
-    const { src, partyColor } = props;
+    const { src, partyColor, candidateName, partyName, votePercentage, voteCount } = props;
     return (
         <div>
             <div className="flex">
@@ -18,16 +22,16 @@ export default function CandidateCard(props: CandidateCard) {
                 </div>
                 <div className="flex flex-col justify-center gap-y-[2px]">
                     <div className="flex gap-x-[10px]">
-                        <p className="text-base font-semibold">이재명</p>
+                        <p className="text-base font-semibold">{candidateName}</p>
                         <div className="bg-blue-600 text-white text-[12px] font-semibold rounded-[2px] px-[4px] pt-[4px]" style={{ backgroundColor: partyColor }}>
-                            더불어민주당
+                            {partyName}
                         </div>
                     </div>
-                    <div className="text-[18px] font-bold leading-[20px]">49.9%</div>
-                    <div className="text-[12px] text-neutral-600">101,106표</div>
+                    <div className="text-[18px] font-bold leading-[20px]">{votePercentage.toFixed(1)}%</div>
+                    <div className="text-[12px] text-neutral-600">{voteCount.toLocaleString()}표</div>
                 </div>
             </div>
-            <div><PercentageBar percentage={38.7} color={partyColor}/></div>
+            <div><PercentageBar percentage={votePercentage} color={partyColor}/></div>
         </div>
     );
 }
