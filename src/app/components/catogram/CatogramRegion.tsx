@@ -65,7 +65,11 @@ const CartogramRegion = ({ electionData, onRegionHover }: CatogramRegionProps) =
                     strokeWidth={1}
                     onMouseEnter={() => onRegionHover?.(region.id)}
                     onMouseLeave={() => onRegionHover?.(null)}
-                    style={{ cursor: 'pointer' }}
+                    style={{
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                    }}
+                    className="hover:stroke-[#333] hover:stroke-[3] hover:brightness-110"
                   />
                   <text x={x} y={y} textAnchor="middle" fill="#ffffff" pointerEvents="none">
                     {lines.map((line, i) => (
