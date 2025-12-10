@@ -61,15 +61,15 @@ const CartogramRegion = ({ electionData, onRegionHover }: CatogramRegionProps) =
                   <polygon
                     points={points}
                     fill={regionColor}
-                    stroke="#999"
-                    strokeWidth={1}
+                    stroke="rgba(0,0,0,0.15)"
+                    strokeWidth={0.5}
                     onMouseEnter={() => onRegionHover?.(region.id)}
                     onMouseLeave={() => onRegionHover?.(null)}
                     style={{
                       cursor: 'pointer',
                       transition: 'all 0.2s ease',
                     }}
-                    className="hover:stroke-[#333] hover:stroke-[3] hover:brightness-110"
+                    className="hover:stroke-[#d4c4a8] hover:stroke-[3] hover:brightness-110"
                   />
                   <text x={x} y={y} textAnchor="middle" fill="#ffffff" pointerEvents="none">
                     {lines.map((line, i) => (

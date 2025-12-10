@@ -40,17 +40,32 @@ export default function Page() {
   // 표시할 지역 데이터 (호버된 지역이 있으면 그것, 없으면 서울 중구)
   const displayData = hoveredRegionData || data.find((item) => item.sdName === '서울특별시' && item.cityName === '중구') || data[0];
 
-  // 1위 후보 찾기
-  const candidates = displayData
+  // 후보자 정보 (번호순으로 고정: 1번 이재명, 2번 김문수, 3번 이준석)
+  const topCandidates = displayData
     ? [
-        { name: displayData.hbj01, vote: displayData.vote01, count: displayData.dugsu01, party: displayData.jd01 },
-        { name: displayData.hbj02, vote: displayData.vote02, count: displayData.dugsu02, party: displayData.jd02 },
-        { name: displayData.hbj03, vote: displayData.vote03, count: displayData.dugsu03, party: displayData.jd03 },
-      ].sort((a, b) => b.vote - a.vote)
+        {
+          name: displayData.hbj01,
+          vote: displayData.vote01,
+          count: displayData.dugsu01,
+          party: displayData.jd01,
+          meta: candidateMeta[displayData.hbj01 as keyof typeof candidateMeta] || candidateMeta["이재명"]
+        },
+        {
+          name: displayData.hbj02,
+          vote: displayData.vote02,
+          count: displayData.dugsu02,
+          party: displayData.jd02,
+          meta: candidateMeta[displayData.hbj02 as keyof typeof candidateMeta] || candidateMeta["김문수"]
+        },
+        {
+          name: displayData.hbj03,
+          vote: displayData.vote03,
+          count: displayData.dugsu03,
+          party: displayData.jd03,
+          meta: candidateMeta[displayData.hbj03 as keyof typeof candidateMeta] || candidateMeta["이준석"]
+        },
+      ]
     : [];
-
-  const winner = candidates[0];
-  const winnerMeta = winner ? candidateMeta[winner.name as keyof typeof candidateMeta] : candidateMeta["이재명"];
 
   return (
     <div className="p-8">
@@ -76,14 +91,17 @@ export default function Page() {
             totalVotes={displayData?.tusu || 0}
             turnout={displayData?.turnout || 0}
           />
-          <CandidateCard
-            src={winnerMeta.image}
-            partyColor={winnerMeta.partyColor}
-            candidateName={winner?.name || '이재명'}
-            partyName={winner?.party || '더불어민주당'}
-            votePercentage={winner?.vote || 0}
-            voteCount={winner?.count || 0}
-          />
+          {topCandidates.map((candidate, index) => (
+            <CandidateCard
+              key={index}
+              src={candidate.meta.image}
+              partyColor={candidate.meta.partyColor}
+              candidateName={candidate.name}
+              partyName={candidate.party}
+              votePercentage={candidate.vote}
+              voteCount={candidate.count}
+            />
+          ))}
         </div>
       </div>
     </div>
