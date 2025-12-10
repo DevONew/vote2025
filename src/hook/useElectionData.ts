@@ -47,7 +47,6 @@ export function useElectionData() {
         setData(json);
       } catch (err) {
         // 오류 발생 시 에러 메시지를 state에 저장
-        console.error('선거 데이터 로딩 실패:', err);
         setError('데이터 로딩 중 오류가 발생했습니다.');
       } finally {
         // 데이터 로딩이 끝나면 loading 상태를 false로 설정

@@ -13,7 +13,6 @@ export function MSWProvider({ children }: { children: React.ReactNode }) {
         await worker.start({
           onUnhandledRequest: 'bypass', // Mock되지 않은 요청은 그대로 통과
         });
-        console.log('[MSW] Mock Service Worker 시작됨');
       }
       setMswReady(true);
     };

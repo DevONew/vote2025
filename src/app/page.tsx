@@ -13,11 +13,6 @@ export default function Page() {
   // 호버된 지역 ID 상태 관리
   const [hoveredRegionId, setHoveredRegionId] = useState<string | null>(null);
 
-  // 콘솔에 데이터 출력하여 확인
-  console.log('[Page] 선거 데이터:', data);
-  console.log('[Page] 로딩 상태:', loading);
-  console.log('[Page] 에러:', error);
-
   if (loading) {
     return <div className="p-8 text-center">데이터 로딩 중...</div>;
   }
